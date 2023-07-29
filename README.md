@@ -7,6 +7,7 @@
         └── [theme]
     ├── [core]
         ├── [error]
+        ├── [resoures]
         ├── [network]
         ├── [usecases]
         └── [utils]
