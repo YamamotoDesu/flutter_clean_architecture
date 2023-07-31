@@ -1,4 +1,6 @@
 # flutter_clean_architecture
+<img width="300" alt="image" src="https://github.com/YamamotoDesu/flutter_clean_architecture/assets/47273077/e47021d0-19ac-404b-b47d-6fadf1360ed5">
+
 ```
 
 [lib]
