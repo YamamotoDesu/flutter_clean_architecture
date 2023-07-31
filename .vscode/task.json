@@ -1,0 +1,19 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "build",
+        "type": "shell",
+        "command": "flutter",
+        "args": ["build"],
+        "problemMatcher": []
+      },
+      {
+        "label": "post-build script",
+        "type": "shell",
+        "command": "${workspaceFolder}/Users/yamamotokyou/confetti_shortcut.sh",
+        "dependsOn": "build",
+        "problemMatcher": []
+      }
+    ]
+  }
