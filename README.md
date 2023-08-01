@@ -2,31 +2,67 @@
 <img width="300" alt="image" src="https://github.com/YamamotoDesu/flutter_clean_architecture/assets/47273077/e47021d0-19ac-404b-b47d-6fadf1360ed5">
 
 ```
-
-[lib]
-    ├── [config]
-        ├── [routes]
-        └── [theme]
-    ├── [core]
-        ├── [error]
-        ├── [resoures]
-        ├── [network]
-        ├── [usecases]
-        └── [utils]
-    ├── [fetures]
-        └── [auth]
-            ├── [data]
-                ├── [data_sources]
-                ├── [models]
-                └── [repository]
-            ├── [domain]
-                ├── [entities]
-                ├── [repository]
-                └── [usecases]
-            └── [presentation]
-                ├── [bloc]
-                └── [pages]
-    └── main.dart
+- lib
+  - config
+    - routes
+    - theme
+      - app_themes.dart
+  - core
+    - constants
+      - constants.dart
+    - error
+    - network
+    - resources
+      - data_state.dart
+    - usecases
+      - usecase.dart
+    - utils
+  - fetures
+    - auth
+      - data
+        - data_sources
+        - models
+        - repository
+      - domain
+        - entities
+        - repository
+        - usecases
+      - presentation
+        - bloc
+        - pages
+    - daily_news
+      - .DS_Store
+      - data
+        - .DS_Store
+        - data_soures
+          - remotes
+            - news_api_service.dart
+            - news_api_service.g.dart
+        - models
+          - artile.dart
+        - repository
+          - article_repository_impl.dart
+      - domain
+        - entities
+          - article.dart
+        - repository
+          - article_repository.dart
+        - usercases
+          - get_article.dart
+      - presentaion
+        - bloc
+          - article
+            - remote
+              - remote_article_bloc.dart
+              - remote_article_event.dart
+              - remote_article_state.dart
+        - pages
+          - home
+            - daily_news.dart
+        - widgets
+          - article_tile.dart
+  - injection_container.dart
+  - main.dart
 ```
 
 pubspec.yaml
