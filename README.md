@@ -181,3 +181,44 @@ class RemoteArticlesError extends RemoteArticlesState {
   const RemoteArticlesError(DioException error) : super(error: error);
 }
 ```
+
+lib/fetures/daily_news/presentaion/bloc/article/remote/remote_article_event.dart
+```dart
+abstract class RemoteArticlesEvent {
+  const RemoteArticlesEvent();
+}
+
+class GetArticles extends RemoteArticlesEvent {
+  const GetArticles();
+}
+```
+
+lib/fetures/daily_news/presentaion/bloc/article/remote/remote_article_bloc.dart
+```dart
+
+class RemoteArticlesBloc extends Bloc<RemoteArticlesEvent, RemoteArticlesState> {
+
+  final GetArticleUseCase _getArticleUseCase;
+
+  RemoteArticlesBloc(this._getArticleUseCase) : super(const RemoteArticlesLoading()) {
+    on <GetArticles> (onGetArticles);
+  }
+
+  void onGetArticles(GetArticles event, Emitter<RemoteArticlesState> emitter) async {
+    final datastate = await _getArticleUseCase();
+
+    if (datastate is DataSuccess && datastate.data!.isNotEmpty) {
+      emit(
+        RemoteArticlesDone(datastate.data!)
+      );
+    }
+
+    if (datastate is DataFailed) {
+      print(datastate.error!.message);
+      emit(
+        RemoteArticlesError(datastate.error!)
+      );
+    }
+  }
+}
+```
