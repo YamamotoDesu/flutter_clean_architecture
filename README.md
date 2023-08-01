@@ -86,3 +86,73 @@ flutter:
       - asset: assets/fonts/muli/Muli-Light.ttf
         weight: 300
 ```
+
+## Presentation Layer
+```
+- presentaion
+        - bloc
+          - article
+            - remote
+              - remote_article_bloc.dart
+              - remote_article_event.dart
+              - remote_article_state.dart
+        - pages
+          - home
+            - daily_news.dart
+        - widgets
+          - article_tile.dart
+```
+
+lib/fetures/daily_news/presentaion/pages/home/daily_news.dart
+```dart
+class DailyNews extends StatelessWidget {
+  const DailyNews({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: _buildAppbar(),
+      body: _buildBody(),
+    );
+  }
+
+  _buildAppbar() {
+    return AppBar(
+      title: const Text(
+        "Daily News",
+        style: TextStyle(
+          color: Colors.black,
+        ),
+      ),
+    );
+  }
+
+  _buildBody() {
+    return BlocBuilder<RemoteArticlesBloc, RemoteArticlesState>(
+      builder: (_, state) {
+        if (state is RemoteArticlesLoading) {
+          return const Center(
+            child: CupertinoActivityIndicator(),
+          );
+        }
+
+        if (state is RemoteArticlesError) {
+          return const Center(
+            child: Icon(Icons.refresh),
+          );
+        }
+
+        if (state is RemoteArticlesDone) {
+          return ListView.builder(
+            itemBuilder: (contex, index) {
+              return ArticleWidget(article: state.articles![index]);
+            },
+            itemCount: state.articles!.length,
+          );
+        }
+        return const SizedBox();
+      },
+    );
+  }
+}
+```
