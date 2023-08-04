@@ -105,28 +105,6 @@ flutter:
 
 lib/fetures/daily_news/presentaion/pages/home/daily_news.dart
 ```dart
-class DailyNews extends StatelessWidget {
-  const DailyNews({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppbar(),
-      body: _buildBody(),
-    );
-  }
-
-  _buildAppbar() {
-    return AppBar(
-      title: const Text(
-        "Daily News",
-        style: TextStyle(
-          color: Colors.black,
-        ),
-      ),
-    );
-  }
-
   _buildBody() {
     return BlocBuilder<RemoteArticlesBloc, RemoteArticlesState>(
       builder: (_, state) {
@@ -153,8 +131,6 @@ class DailyNews extends StatelessWidget {
         return const SizedBox();
       },
     );
-  }
-}
 ```
 
 lib/fetures/daily_news/presentaion/bloc/article/remote/remote_article_state.dart
@@ -219,6 +195,80 @@ class RemoteArticlesBloc extends Bloc<RemoteArticlesEvent, RemoteArticlesState> 
         RemoteArticlesError(datastate.error!)
       );
     }
+  }
+}
+```
+
+## Domain Layer
+
+```
+      - domain
+        - entities
+          - article.dart
+        - repository
+          - article_repository.dart
+        - usercases
+          - get_article.dart
+```
+
+lib/fetures/daily_news/domain/entities/article.dart
+```dart
+import 'package:equatable/equatable.dart';
+
+class ArticleEntity extends Equatable {
+  final int? id;
+  final String? author;
+  final String? title;
+  final String? description;
+  final String? url;
+  final String? urlToImage;
+  final String? publishedAt;
+  final String? content;
+
+  const ArticleEntity({
+    this.id,
+    this.author,
+    this.title,
+    this.description,
+    this.url,
+    this.urlToImage,
+    this.publishedAt,
+    this.content,
+  });
+
+  @override
+  List<Object?> get props {
+    return [
+      id,
+      author,
+      title,
+      description,
+      url,
+      urlToImage,
+      publishedAt,
+      content,
+    ];
+  }
+}
+```
+
+lib/fetures/daily_news/domain/repository/article_repository.dart
+```dart
+abstract class ArticleRepository {
+  Future<DataState<List<ArticleEntity>>> getNewsArticles();
+}
+```
+
+lib/fetures/daily_news/domain/usercases/get_article.dart
+```dart
+class GetArticleUseCase implements UseCase<DataState<List<ArticleEntity>>, void> {
+  final ArticleRepository _repository;
+
+  GetArticleUseCase(this._repository);
+
+  @override
+  Future<DataState<List<ArticleEntity>>> call({void params}) {
+    return  _repository.getNewsArticles();
   }
 }
 ```
