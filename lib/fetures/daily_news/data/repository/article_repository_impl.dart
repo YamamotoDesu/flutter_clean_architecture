@@ -2,11 +2,12 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_clean_architecture/core/constants/constants.dart';
-import 'package:flutter_clean_architecture/fetures/daily_news/data/models/artile.dart';
+
 import 'package:flutter_clean_architecture/fetures/daily_news/domain/repository/article_repository.dart';
 
 import '../../../../core/resources/data_state.dart';
 import '../data_soures/remotes/news_api_service.dart';
+import '../models/article.dart';
 
 class ArticleRepositoryImpl implements ArticleRepository {
   final NewsApiService _newsApiService;

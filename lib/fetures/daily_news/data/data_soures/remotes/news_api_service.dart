@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_clean_architecture/core/constants/constants.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../../models/artile.dart';
+import '../../models/article.dart';
 
 part 'news_api_service.g.dart';
 
