@@ -337,7 +337,55 @@ Future<void> initialaizeDependencies() async {
 ```
 
 ### Add UseCase
-x
+lib/fetures/daily_news/domain/usercases/get_saved_article.dart
+```dart
+
+import '../repository/article_repository.dart';
+
+class GetSavedArticleUseCase implements UseCase<List<ArticleEntity>, void> {
+  final ArticleRepository _repository;
+
+  GetSavedArticleUseCase(this._repository);
+
+  @override
+  Future<List<ArticleEntity>> call({void params}) {
+    return  _repository.getSavedArticles();
+  }
+}
+```
+
+lib/fetures/daily_news/domain/usercases/remove_article.dart
+```dart
+import '../repository/article_repository.dart';
+
+class RemoveArticleUseCase implements UseCase<void, ArticleEntity> {
+  final ArticleRepository _repository;
+
+  RemoveArticleUseCase(this._repository);
+
+  @override
+  Future<void> call({ArticleEntity? params}) {
+    return _repository.deleteArticle(params!);
+  }
+}
+
+```
+
+lib/fetures/daily_news/domain/usercases/save _article.dart
+```dart
+class SavedArticleUseCase implements UseCase<void, ArticleEntity> {
+  final ArticleRepository _repository;
+
+  SavedArticleUseCase(this._repository);
+
+  @override
+  Future<void> call({ArticleEntity? params}) {
+    return _repository.saveArticle(params!);
+  }
+}
+
+```
+
 lib/injection_container.dart
 ```dart
 
