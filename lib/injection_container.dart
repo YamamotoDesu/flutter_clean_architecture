@@ -11,41 +11,46 @@ import 'package:flutter_clean_architecture/fetures/daily_news/presentaion/bloc/a
 import 'package:get_it/get_it.dart';
 
 import 'fetures/daily_news/data/data_soures/local/app_database.dart';
+import 'fetures/daily_news/presentaion/bloc/article/local/local_article_bloc.dart';
 
-final s1 = GetIt.instance;
+final sl = GetIt.instance;
 
 Future<void> initialaizeDependencies() async {
 
   final database = await $FloorAppDatabse.databaseBuilder('app_database.db').build();
-  s1.registerSingleton<AppDatabse>(database);
+  sl.registerSingleton<AppDatabse>(database);
 
   // Dio
-  s1.registerSingleton<Dio>(Dio());
+  sl.registerSingleton<Dio>(Dio());
   
   // Dependencies
-  s1.registerSingleton<NewsApiService>(NewsApiService(s1()));
+  sl.registerSingleton<NewsApiService>(NewsApiService(sl()));
 
-  s1.registerSingleton<ArticleRepository>(
-    ArticleRepositoryImpl(s1(), s1())
+  sl.registerSingleton<ArticleRepository>(
+    ArticleRepositoryImpl(sl(), sl())
   );
 
   // UseCases
-  s1.registerSingleton<GetArticleUseCase>(GetArticleUseCase(s1()));
+  sl.registerSingleton<GetArticleUseCase>(GetArticleUseCase(sl()));
 
-  s1.registerSingleton<GetSavedArticleUseCase>(
-    GetSavedArticleUseCase(s1())
+  sl.registerSingleton<GetSavedArticleUseCase>(
+    GetSavedArticleUseCase(sl())
   );
 
-  s1.registerSingleton<SavedArticleUseCase>(
-    SavedArticleUseCase(s1())
+  sl.registerSingleton<SavedArticleUseCase>(
+    SavedArticleUseCase(sl())
   );
 
-  s1.registerSingleton<RemoveArticleUseCase>(
-    RemoveArticleUseCase(s1())
+  sl.registerSingleton<RemoveArticleUseCase>(
+    RemoveArticleUseCase(sl())
   );
 
   // Blocs
-  s1.registerFactory<RemoteArticlesBloc>(
-    ()=> RemoteArticlesBloc(s1())
+  sl.registerFactory<RemoteArticlesBloc>(
+    ()=> RemoteArticlesBloc(sl())
+  );
+
+  sl.registerFactory<LocalArticleBloc>(
+    ()=> LocalArticleBloc(sl(), sl(), sl())
   );
 }

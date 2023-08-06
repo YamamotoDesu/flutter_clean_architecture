@@ -4,6 +4,7 @@ import 'package:flutter_clean_architecture/fetures/daily_news/presentaion/bloc/a
 import 'package:flutter_clean_architecture/fetures/daily_news/presentaion/bloc/article/remote/remote_article_event.dart';
 import 'package:flutter_clean_architecture/fetures/daily_news/presentaion/pages/home/daily_news.dart';
 
+import 'config/routes/routes.dart';
 import 'config/theme/app_themes.dart';
 import 'injection_container.dart';
 
@@ -20,13 +21,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<RemoteArticlesBloc>(
-      create: (context) => s1()
+      create: (context) => sl()
         ..add(
           const GetArticles(),
         ),
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: theme(),
+        onGenerateRoute: AppRoutes.onGenerateRoutes,
         home: const DailyNews(),
       ),
     );
