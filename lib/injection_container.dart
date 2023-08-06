@@ -7,10 +7,15 @@ import 'package:flutter_clean_architecture/fetures/daily_news/domain/usercases/g
 import 'package:flutter_clean_architecture/fetures/daily_news/presentaion/bloc/article/remote/remote_article_bloc.dart';
 import 'package:get_it/get_it.dart';
 
+import 'fetures/daily_news/data/data_soures/local/app_database.dart';
+
 final s1 = GetIt.instance;
 
 Future<void> initialaizeDependencies() async {
 
+  final database = await $FloorAppDatabse.databaseBuilder('app_database.db').build();
+  s1.registerSingleton<AppDatabse>(database);
+  
   // Dio
   s1.registerSingleton<Dio>(Dio());
   
