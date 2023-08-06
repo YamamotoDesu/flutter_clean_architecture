@@ -4,6 +4,9 @@ import 'package:flutter_clean_architecture/fetures/daily_news/data/data_soures/r
 import 'package:flutter_clean_architecture/fetures/daily_news/data/repository/article_repository_impl.dart';
 import 'package:flutter_clean_architecture/fetures/daily_news/domain/repository/article_repository.dart';
 import 'package:flutter_clean_architecture/fetures/daily_news/domain/usercases/get_article.dart';
+import 'package:flutter_clean_architecture/fetures/daily_news/domain/usercases/get_saved_article.dart';
+import 'package:flutter_clean_architecture/fetures/daily_news/domain/usercases/remove_article.dart';
+import 'package:flutter_clean_architecture/fetures/daily_news/domain/usercases/save%20_article.dart';
 import 'package:flutter_clean_architecture/fetures/daily_news/presentaion/bloc/article/remote/remote_article_bloc.dart';
 import 'package:get_it/get_it.dart';
 
@@ -15,7 +18,7 @@ Future<void> initialaizeDependencies() async {
 
   final database = await $FloorAppDatabse.databaseBuilder('app_database.db').build();
   s1.registerSingleton<AppDatabse>(database);
-  
+
   // Dio
   s1.registerSingleton<Dio>(Dio());
   
@@ -23,11 +26,23 @@ Future<void> initialaizeDependencies() async {
   s1.registerSingleton<NewsApiService>(NewsApiService(s1()));
 
   s1.registerSingleton<ArticleRepository>(
-    ArticleRepositoryImpl(s1())
+    ArticleRepositoryImpl(s1(), s1())
   );
 
   // UseCases
   s1.registerSingleton<GetArticleUseCase>(GetArticleUseCase(s1()));
+
+  s1.registerSingleton<GetSavedArticleUseCase>(
+    GetSavedArticleUseCase(s1())
+  );
+
+  s1.registerSingleton<SavedArticleUseCase>(
+    SavedArticleUseCase(s1())
+  );
+
+  s1.registerSingleton<RemoveArticleUseCase>(
+    RemoveArticleUseCase(s1())
+  );
 
   // Blocs
   s1.registerFactory<RemoteArticlesBloc>(
