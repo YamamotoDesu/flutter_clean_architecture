@@ -477,3 +477,12 @@ Future<void> initialaizeDependencies() async {
   );
 }
 ```
+
+main.dart
+```dart
+
+void main() async 
+  await initialaizeDependencies();
+  runApp(const MyApp());
+}
+```
