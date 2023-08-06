@@ -414,16 +414,65 @@ lib/injection_container.dart
 ###  DI(get_it)
 Before
 ```dart
-class Api {
-  Client clinet = Client();
-}
-```
+Api api = Api(clinet: Client());
 
-After 
-```dart
 class Api {
   Client clinet;
 
   Api({this.client})
+}
+
+class HomeScreen extends StatelessWidget {
+  Api api;
+
+  HomeScreen({this.api})
+}
+
+HomeScreen(api: Api(clent: Clent());
+```
+
+After 
+lib/injection_container.dart
+```dart
+final sl = GetIt.instance;
+
+Future<void> initialaizeDependencies() async {
+
+  final database = await $FloorAppDatabse.databaseBuilder('app_database.db').build();
+  sl.registerSingleton<AppDatabse>(database);
+
+  // Dio
+  sl.registerSingleton<Dio>(Dio());
+  
+  // Dependencies
+  sl.registerSingleton<NewsApiService>(NewsApiService(sl()));
+
+  sl.registerSingleton<ArticleRepository>(
+    ArticleRepositoryImpl(sl(), sl())
+  );
+
+  // UseCases
+  sl.registerSingleton<GetArticleUseCase>(GetArticleUseCase(sl()));
+
+  sl.registerSingleton<GetSavedArticleUseCase>(
+    GetSavedArticleUseCase(sl())
+  );
+
+  sl.registerSingleton<SavedArticleUseCase>(
+    SavedArticleUseCase(sl())
+  );
+
+  sl.registerSingleton<RemoveArticleUseCase>(
+    RemoveArticleUseCase(sl())
+  );
+
+  // Blocs
+  sl.registerFactory<RemoteArticlesBloc>(
+    ()=> RemoteArticlesBloc(sl())
+  );
+
+  sl.registerFactory<LocalArticleBloc>(
+    ()=> LocalArticleBloc(sl(), sl(), sl())
+  );
 }
 ```
