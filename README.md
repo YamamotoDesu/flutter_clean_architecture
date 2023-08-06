@@ -277,6 +277,8 @@ class GetArticleUseCase implements UseCase<DataState<List<ArticleEntity>>, void>
 
 ## Database Layer
 ### Dao Pattern
+![image](https://github.com/YamamotoDesu/flutter_clean_architecture/assets/47273077/02b12276-4bee-4795-98e9-36d8e25682ec)
+
 ```
     - data
       - data_soures
@@ -406,18 +408,18 @@ lib/injection_container.dart
 ```
 
 
-# Service Locator Pattern
+## Service Locator Pattern
 ![image](https://github.com/YamamotoDesu/flutter_clean_architecture/assets/47273077/c2a59961-bf54-457c-b29b-d76eef8eb0b1)
 
-##  DI(get_it)
-### Before
+###  DI(get_it)
+Before
 ```dart
 class Api {
   Client clinet = Client();
 }
 ```
 
-### After 
+After 
 ```dart
 class Api {
   Client clinet;
