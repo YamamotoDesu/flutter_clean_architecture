@@ -412,7 +412,7 @@ lib/injection_container.dart
 ![image](https://github.com/YamamotoDesu/flutter_clean_architecture/assets/47273077/c2a59961-bf54-457c-b29b-d76eef8eb0b1)
 
 ###  DI(get_it)
-Before
+IF not using DI
 ```dart
 Api api = Api(clinet: Client());
 
@@ -431,7 +431,8 @@ class HomeScreen extends StatelessWidget {
 HomeScreen(api: Api(clent: Clent());
 ```
 
-After 
+---- 
+If using DI
 lib/injection_container.dart
 ```dart
 final sl = GetIt.instance;
