@@ -272,3 +272,59 @@ class GetArticleUseCase implements UseCase<DataState<List<ArticleEntity>>, void>
   }
 }
 ```
+
+## Database Layer
+### Dao Pattern
+
+lib/fetures/daily_news/data/data_soures/local/DAO/article_dao.dart
+```dart
+import 'package:floor/floor.dart';
+
+import '../../../models/article.dart';
+
+@dao
+abstract class ArticleDao {
+
+  @Insert()
+  Future<void> insertArticle(ArticleModel article);
+
+  @delete
+  Future<void> deleteArticle(ArticleModel articleModel);
+
+  @Query('SELECT * FROM article')
+  Future<List<ArticleModel>> getArticles();
+}
+```
+
+lib/fetures/daily_news/data/data_soures/local/app_database.dart
+```dart
+
+import 'dart:async';
+
+import 'package:floor/floor.dart';
+import 'package:sqflite/sqflite.dart' as sqflite;
+
+import '../../models/article.dart';
+import 'DAO/article_dao.dart';
+
+part 'app_database.g.dart';
+
+@Database(version: 1, entities: [ArticleModel])
+abstract class AppDatabse extends FloorDatabase {
+  ArticleDao get articleDao;
+}
+```
+
+lib/injection_container.dart
+```dart
+
+final s1 = GetIt.instance;
+
+Future<void> initialaizeDependencies() async {
+
+  final database = await $FloorAppDatabse.databaseBuilder('app_database.db').build();
+  s1.registerSingleton<AppDatabse>(database);
+
+```
+
+
