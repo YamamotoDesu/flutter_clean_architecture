@@ -405,7 +405,11 @@ lib/injection_container.dart
 
 ```
 
-## DI(get_it)
+
+# Service Locator Pattern
+![image](https://github.com/YamamotoDesu/flutter_clean_architecture/assets/47273077/c2a59961-bf54-457c-b29b-d76eef8eb0b1)
+
+##  DI(get_it)
 ### Before
 ```dart
 class Api {
