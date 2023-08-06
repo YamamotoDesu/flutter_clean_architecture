@@ -1,4 +1,4 @@
-# flutter_clean_architecture
+# [flutter_clean_architecture](https://www.youtube.com/watch?v=7V_P6dovixg&list=WL&index=8)
 <img width="300" alt="image" src="https://github.com/YamamotoDesu/flutter_clean_architecture/assets/47273077/e47021d0-19ac-404b-b47d-6fadf1360ed5">
 <img width="300" alt="image" src="https://github.com/YamamotoDesu/flutter_clean_architecture/assets/47273077/35a3ef0d-34b9-4b97-ae64-7653162af08b">
 
