@@ -486,3 +486,6 @@ void main() async
   runApp(const MyApp());
 }
 ```
+
+<img width="875" alt="image" src="https://github.com/YamamotoDesu/flutter_clean_architecture/assets/47273077/6530c071-3eea-447d-8438-2b51cbbe93c5">
+
