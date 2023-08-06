@@ -275,6 +275,15 @@ class GetArticleUseCase implements UseCase<DataState<List<ArticleEntity>>, void>
 
 ## Database Layer
 ### Dao Pattern
+```
+    - data
+      - data_soures
+        - local
+          - DAO
+            - article_dao.dart
+            - app_database.dart
+            - app_database.g.dart
+```
 
 lib/fetures/daily_news/data/data_soures/local/DAO/article_dao.dart
 ```dart
@@ -327,4 +336,22 @@ Future<void> initialaizeDependencies() async {
 
 ```
 
+### Add UseCase
+x
+lib/injection_container.dart
+```dart
+
+  s1.registerSingleton<GetSavedArticleUseCase>(
+    GetSavedArticleUseCase(s1())
+  );
+
+  s1.registerSingleton<SavedArticleUseCase>(
+    SavedArticleUseCase(s1())
+  );
+
+  s1.registerSingleton<RemoveArticleUseCase>(
+    RemoveArticleUseCase(s1())
+  );
+
+```
 
