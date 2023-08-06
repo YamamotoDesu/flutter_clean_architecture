@@ -405,3 +405,19 @@ lib/injection_container.dart
 
 ```
 
+## DI(get_it)
+### Before
+```dart
+class Api {
+  Client clinet = Client();
+}
+```
+
+### After 
+```dart
+class Api {
+  Client clinet;
+
+  Api({this.client})
+}
+``
