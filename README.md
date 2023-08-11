@@ -489,3 +489,141 @@ void main() async
 
 <img width="875" alt="image" src="https://github.com/YamamotoDesu/flutter_clean_architecture/assets/47273077/6530c071-3eea-447d-8438-2b51cbbe93c5">
 
+## [Model Testing | Part 3](https://www.youtube.com/watch?v=0MbGFiOUGGg)
+
+### 🤡 prepare a dummy JSON and a helper class for reading
+
+
+test/helpers/dummy_data/dummy_weather_response.json
+```json
+{
+       "coord": {
+              "lon": -74.006,
+              "lat": 40.7143
+       },
+       "weather": [
+              {
+                     "id": 800,
+                     "main": "Clear",
+                     "description": "clear sky",
+                     "icon": "01n"
+              }
+       ],
+       "base": "stations",
+       "main": {
+              "temp": 292.87,
+              "feels_like": 292.73,
+              "temp_min": 290.47,
+              "temp_max": 294.25,
+              "pressure": 1012,
+              "humidity": 70
+       },
+       "visibility": 10000,
+       "wind": {
+              "speed": 6.26,
+              "deg": 319,
+              "gust": 8.94
+       },
+       "clouds": {
+              "all": 0
+       },
+       "dt": 1690708177,
+       "sys": {
+              "type": 2,
+              "id": 2008101,
+              "country": "JP",
+              "sunrise": 1690710627,
+              "sunset": 1690762457
+       },
+       "timezone": -14400,
+       "id": 5128581,
+       "name": "Tokyo",
+       "cod": 200
+}
+```
+
+test/helpers/json_reader.dart
+```dart
+import 'dart:io';
+
+String readJson(String name) {
+  var dir = Directory.current.path;
+  if (dir.endsWith('/test')) {
+    dir = dir.replaceAll('/test', '');
+  }
+  return File('$dir/test/$name').readAsStringSync();
+}
+
+```
+
+✅ 
+
+test/data/models/weather_model_test.dart
+```dart
+import 'dart:convert';
+
+import 'package:clean_architecture_testing/data/models/weather_model.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+import '../../helpers/json_reader.dart';
+
+void main() {
+  const testWeatherModel = WeatherModel(
+    cityName: 'Tokyo',
+    main: 'Clear',
+    description: 'clear sky',
+    iconCode: '01n',
+    temperature: 292.87,
+    pressure: 1012,
+    humidity: 70,
+  );
+  test(
+    'should be a subclass of weather entity',
+    () async {
+      // assert
+      expect(testWeatherModel, isA<WeatherModel>());
+    },
+  );
+
+  test(
+    'should return a valid model from json',
+    () async {
+      // arrange
+      final Map<String, dynamic> jsonMap = json.decode(
+        readJson('helpers/dummy_data/dummy_weather_response.json'),
+      );
+
+      // act
+      final result = WeatherModel.fromJson(jsonMap);
+
+      // expect
+      expect(result, testWeatherModel);
+    },
+  );
+
+  test('should return a json map containing proper data', () async {
+    // act
+    final result = testWeatherModel.toJson();
+
+    // assert
+    final expectedJsonMap = {
+      "weather": [
+        {
+          "main": "Clear",
+          "description": "clear sky",
+          "icon": "01n",
+        }
+      ],
+      "main": {
+        "temp": 292.87,
+        "pressure": 1012,
+        "humidity": 70,
+      },
+      "name": "Tokyo",
+    };
+
+    expect(result, expectedJsonMap);
+  });
+}
+```
+
